@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Person from './Person/Person'
+import Person from './Person/Person';
 
 class App extends Component {
   state = {
@@ -45,6 +45,13 @@ class App extends Component {
   }
 
   render() {
+    const style = {
+      backgroundColor: 'green',
+      color: 'white',
+      border: '1px solid darkgreen',
+      padding: '10px',
+      marginTop: '20px'
+    }
     return (
       <div className="App">
       {
@@ -52,12 +59,16 @@ class App extends Component {
           return <Person key={index} klik={() => this.deletePerosnHandler(index)} name={person.name} age={person.age} change={(event) => this.nameChangedHandler(event, person.id)}/>
         })
       }
-        <button onClick={this.togglePersonsHandler}>Switch name</button>
-        {!this.state.showPersons ? <div >
-          {/* <Person age={this.state.persons[0].age} name={this.state.persons[0].name} klik={this.switchNameHandler} change={this.nameChangedHandler}/>
+        <button style={style} onClick={this.togglePersonsHandler}>Switch name</button>
+        {!this.state.showPersons ? 
+        <div >
+          <Person age={this.state.persons[0].age} name={this.state.persons[0].name} klik={this.switchNameHandler} change={this.nameChangedHandler}/>
           <Person age={this.state.persons[1].age} name={this.state.persons[1].name}/>
-          <Person age={this.state.persons[2].age} name={this.state.persons[2].name}/> */}
-        </div> : null}
+          <Person age={this.state.persons[2].age} name={this.state.persons[2].name}/>
+          
+        </div>
+        
+         : null}
       </div>
     );
   
