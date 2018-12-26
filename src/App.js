@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
 import './App.css';
-import Person from './Person/Person';
+import Person from './components/Persons/Person/Person';
+import Persons from './components/Persons/Persons';
+import Cockpit from './components/Cockpit/Cockpit'
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    console.log('props', props)
+  }
+
+  componentWillMount = () => {
+    console.log('inside componentWillMount')
+  }
+
   state = {
     persons: [
       {id: 1, name: 'Stojko', age: 28},
@@ -44,7 +55,14 @@ class App extends Component {
     })
   }
 
+  componentDidMount(){
+    console.log('inside did mount')
+  }
+
   render() {
+    console.log('inside render')
+    let persons = null;
+
     const style = {
       backgroundColor: 'green',
       color: 'white',
@@ -52,27 +70,17 @@ class App extends Component {
       padding: '10px',
       marginTop: '20px'
     }
-    return (
-      <div className="App">
-      {
-        this.state.persons.map((person, index) => {
-          return <Person key={index} klik={() => this.deletePerosnHandler(index)} name={person.name} age={person.age} change={(event) => this.nameChangedHandler(event, person.id)}/>
-        })
-      }
-        <button style={style} onClick={this.togglePersonsHandler}>Switch name</button>
-        {!this.state.showPersons ? 
-        <div >
-          <Person age={this.state.persons[0].age} name={this.state.persons[0].name} klik={this.switchNameHandler} change={this.nameChangedHandler}/>
-          <Person age={this.state.persons[1].age} name={this.state.persons[1].name}/>
-          <Person age={this.state.persons[2].age} name={this.state.persons[2].name}/>
-          
-        </div>
-        
-         : null}
-      </div>
-    );
+    if(this.state.showPersons){
+        persons = <Persons appTitle={this.props.title} persons={this.state.persons} clicked={this.deletePerosnHandler} changed={this.nameChangedHandler}/>
+    }
+  return(
+    <div className="App">
+    <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
+    <Cockpit style={style} toggle={this.togglePersonsHandler} />
+      {persons}
+    </div>
+  )
   
   }
 }
-
 export default App;
