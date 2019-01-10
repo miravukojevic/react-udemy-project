@@ -16,6 +16,8 @@ class Persons extends Component {
         console.log('inside did mount')
     }
     
+    
+
     render() {
         return this.props.persons.map((person, index) => {
             return ( 
